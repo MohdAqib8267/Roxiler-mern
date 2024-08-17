@@ -239,7 +239,7 @@ const Banner = () => {
       </div>):
           <DataTable list={list?.data}/>
         }
-          <div className="flex overflow-x-auto sm:justify-center mt-5">
+          <div className="flex overflow-x-auto items-center justify-center mt-5">
             <div className="flex justify-center items-center mr-4 mt-2">
               Page: {list.page}
             </div>
