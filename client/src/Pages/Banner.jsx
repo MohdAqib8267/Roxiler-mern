@@ -18,7 +18,6 @@ Chart.register(CategoryScale);
 const Banner = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
-  const onPageChange = (page) => setCurrentPage(page);
   // console.log(currentPage);
   const URL =
     import.meta.env.MODE == "development"
@@ -64,6 +63,11 @@ const Banner = () => {
       }
     ]
   });
+  
+  const onPageChange = (page) =>{
+    setCurrentPage(page);
+    setLoading(true);
+  } 
   const [month,setMonth] = useState({monthName:'March',monthNumber:3});
   const [search,setSearch] = useState('');
   const [stats,setStats] = useState('')
