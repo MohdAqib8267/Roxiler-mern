@@ -254,6 +254,10 @@ const Banner = () => {
               Per Page: {list.perPage}
             </div>
           </div>
+          <div className="flex items-center justify-center mt-3">
+            <span className="flex font-medium text-zinc-800">Total Entries:</span> 
+            <span>{list?.total}</span>
+          </div>
         </div>
       </section>
       {/* statics of the month */}
