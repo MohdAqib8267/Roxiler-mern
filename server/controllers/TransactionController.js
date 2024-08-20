@@ -47,7 +47,43 @@ export const ListTransaction = async(req,res) =>{
 }
 
 
+export const showStats = async(req,res) =>{
+    const {month} = req.query;
+    try {
+        if(!month){
+            return res.json({error: 'Invalid month. Please provide a month between 1 and 12.' });
+        }
+        let saleAmount=0;
+        let numberOfSoldItems=0;
+        let numberOfUnSoldItems=0;
+        const allTransactions = await db.transactions.findMany({});
+        const transactionWithMonth = allTransactions.filter(filter => {
+            const transactionDate = filter.dateOfSale;
+            return transactionDate.getMonth()+1 == month;
+        })
+        transactionWithMonth.forEach(transaction => {
+            const isSold = transaction.sold;
 
+            if(isSold){
+                saleAmount += transaction.price;
+                numberOfSoldItems += 1;
+            }
+            else{
+                numberOfUnSoldItems+=1;
+            }
+        })
+        return res.status(200).json({
+            stats:{
+                saleAmount:saleAmount,
+                numberOfSoldItems:numberOfSoldItems,
+                numberOfUnSoldItems:numberOfSoldItems
+            }
+        })
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({error:'server error'});
+    }
+}
 export const forBarChart = async(req,res) =>{
         const {month} = req.query;
         
